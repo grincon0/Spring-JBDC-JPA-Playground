@@ -24,7 +24,6 @@ public class PersonJdbcDAO {
 	}
 	
 	public Person findById(int id){
-		// BeanPropertyRowMapper maps entry received from the query to a bean ( like map is in javascript)
 		return jdbcTemplate.queryForObject("select * from person where id=?", new Object[] {id}, new BeanPropertyRowMapper<Person>(Person.class));
 	}
 	
@@ -35,6 +34,14 @@ public class PersonJdbcDAO {
 	public int insert(Person person){
 		return jdbcTemplate.update("insert into person (id, name, location, birth_date)" 
 				+ "values(?, ?, ?, ?)", new Object[] { person.getId(), person.getName(), person.getLocation(), new Timestamp(person.getBirthDate().getTime())});
+	}
+	
+	public int update(Person person){
+		return jdbcTemplate.update(
+				"update person" 
+				+ " set name = ?, location = ?, birth_date = ? "
+				+ " where id = ?"
+				, new Object[] {  person.getName(), person.getLocation(), person.getBirthDate(), person.getId() });
 	}
 	
 }
