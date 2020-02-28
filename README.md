@@ -1,1 +1,1 @@
-# Spring-JBDC-JPA-Playground
+# Spring-JDBC-JPA-Playground
