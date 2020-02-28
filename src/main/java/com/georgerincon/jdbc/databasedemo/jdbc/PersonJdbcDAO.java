@@ -1,5 +1,6 @@
 package com.georgerincon.jdbc.databasedemo.jdbc;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,4 +31,10 @@ public class PersonJdbcDAO {
 	public int deleteById(int id){
 		return jdbcTemplate.update("delete from person where id=?", new Object[] {id});
 	}
+	
+	public int insert(Person person){
+		return jdbcTemplate.update("insert into person (id, name, location, birth_date)" 
+				+ "values(?, ?, ?, ?)", new Object[] { person.getId(), person.getName(), person.getLocation(), new Timestamp(person.getBirthDate().getTime())});
+	}
+	
 }
